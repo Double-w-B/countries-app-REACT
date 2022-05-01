@@ -41,7 +41,7 @@ const InfoBottomBorder = ({ borderCountries }) => {
         {borderCountries.length > 10 ? (
           <p style={{ fontSize: "0.8rem" }}>{common}</p>
         ) : (
-          <p>{common}</p>
+          <p style={{ fontSize: common.length > 14 && "0.8rem" }}>{common}</p>
         )}
       </div>
     );

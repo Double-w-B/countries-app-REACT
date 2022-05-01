@@ -12,10 +12,5 @@ export const store = configureStore({
     countries: countriesReducer,
     backgrImg: backgrImgReducer,
     converter: converterReducer,
-    /*   middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({
-        immutableCheck: false,
-        serializableCheck: false,
-      }), */
   },
 });

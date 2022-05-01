@@ -30,13 +30,18 @@ const Converter = ({ currencies, borderCountries }) => {
   React.useEffect(() => {
     setQuery("");
     dispatch(clearSettings(""));
-    dispatch(setFrom(currFrom.current.selectedOptions[0].innerText));
-    dispatch(setTo(currTo.current.selectedOptions[0].innerText));
+    currencies &&
+      dispatch(setFrom(currFrom.current.selectedOptions[0].innerText));
+    currencies && dispatch(setTo(currTo.current.selectedOptions[0].innerText));
     // eslint-disable-next-line
   }, [backgrImgUrl, change]);
 
   const checkCurr = () => {
-    return currencyFrom ? `100 ${currencyFrom}` : "select the currency";
+    return currencies
+      ? currencyFrom
+        ? `100 ${currencyFrom}`
+        : "select the currency"
+      : "no local currency";
   };
 
   const handleChange = () => {
@@ -114,7 +119,10 @@ const Converter = ({ currencies, borderCountries }) => {
         </label>
       </div>
 
-      <button className="converter__calc-change" onClick={handleChange}>
+      <button
+        className="converter__calc-change"
+        onClick={currencies && handleChange}
+      >
         <img src={exchangeIcon} alt="icon" />
       </button>
       <button className="converter__calc-convert" onClick={handleConvert}>

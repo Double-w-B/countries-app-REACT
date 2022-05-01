@@ -30,18 +30,11 @@ const backgrImgSlice = createSlice({
     },
   },
   extraReducers: {
-    /*     [getImg.pending]: (state) => {
-    }, */
     [getImg.fulfilled]: (state, action) => {
       let number = Math.floor(Math.random() * 9);
       state.backgrImgUrl = action.payload.results[number].urls.regular;
-      document.querySelector(
-        "#root"
-      ).style.backgroundImage = `url(${state.backgrImgUrl})`;
       localStorage.setItem("backgrImg", JSON.stringify(state.backgrImgUrl));
     },
-    /*     [getImg.rejected]: (state, action) => {
-    }, */
   },
 });
 

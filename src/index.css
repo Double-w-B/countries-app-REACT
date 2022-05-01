@@ -94,8 +94,8 @@
   background-position: bottom;
 }
 
-.hero.show{
-bottom: 0;
+.hero.show {
+  bottom: 0;
 }
 
 .hero img {
@@ -900,10 +900,9 @@ bottom: 0;
   .info-bottom--border__countries .country__border:hover {
     border: none;
   }
-.selected__country .info-top--main h2 {
-
-  margin: 0 2rem;
-}
+  .selected__country .info-top--main h2 {
+    margin: 0 2rem;
+  }
 }
 
 @media screen and (max-width: 769px) {
@@ -1007,13 +1006,11 @@ bottom: 0;
     width: 80%;
   }
   .selected__country .info-top--main h2 {
-
-  margin: 0 1rem;
-}
+    margin: 0 1rem;
+  }
   .selected__country .info-top--flag {
     width: 20%;
   }
-
 }
 
 body {

@@ -23,6 +23,14 @@ const CountryPage = () => {
   const navigate = useNavigate();
   let borderCountries = [];
 
+   React.useEffect(() => {
+     if (backgrImgUrl) {
+       document.querySelector(
+         "#root"
+       ).style.backgroundImage = `url(${backgrImgUrl})`;
+     }
+   }, [backgrImgUrl]);
+
   React.useEffect(() => {
     window.onpopstate = () => {
       document.querySelector("#root").removeAttribute("style");
