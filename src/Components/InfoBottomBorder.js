@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setCountryName } from "../features/homePageFunc/homePageFuncSlice";
 import { getImg, clearUrl } from "../features/backgrImg/backgrImgSlice";
-import { setConvVis } from "../features/converter/converterSlice";
+import { setConverterVisibility } from "../features/converter/converterSlice";
 
 const InfoBottomBorder = ({ borderCountries }) => {
   const dispatch = useDispatch();
@@ -32,17 +32,23 @@ const InfoBottomBorder = ({ borderCountries }) => {
           dispatch(setCountryName(common));
           dispatch(clearUrl());
           dispatch(getImg(common));
-          dispatch(setConvVis(false));
+          dispatch(setConverterVisibility(false));
         }}
       >
         <div className="country__border__flag">
           <img src={flag} alt="flag" />
         </div>
-        {borderCountries.length > 10 ? (
-          <p style={{ fontSize: "0.8rem" }}>{common}</p>
-        ) : (
-          <p style={{ fontSize: common.length > 14 && "0.8rem" }}>{common}</p>
-        )}
+
+        <p
+          style={{
+            fontSize:
+              borderCountries.length > 10
+                ? "0.85rem"
+                : common.length > 14 && "0.8rem",
+          }}
+        >
+          {common}
+        </p>
       </div>
     );
   });

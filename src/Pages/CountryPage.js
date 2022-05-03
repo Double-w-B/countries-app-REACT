@@ -9,13 +9,13 @@ import Converter from "../Components/Converter";
 import { setCountryName } from "../features/homePageFunc/homePageFuncSlice";
 import { showCountryInfo } from "../features/navbarBtn/navbarBtnSlice";
 import { clearUrl } from "../features/backgrImg/backgrImgSlice";
-import { setConvVis } from "../features/converter/converterSlice";
+import { setConverterVisibility } from "../features/converter/converterSlice";
 import { showBorderCountries } from "../features/countries/countriesSlice";
 
 const CountryPage = () => {
   const { countries, showCountries } = useSelector((store) => store.countries);
   const { selectedCountry } = useSelector((store) => store.homePageFunc);
-  const { showCountryDet } = useSelector((store) => store.navbarBtn);
+  const { showCountryDetails } = useSelector((store) => store.navbarBtn);
   const { backgrImgUrl } = useSelector((store) => store.backgrImg);
   const { converterVis } = useSelector((store) => store.converter);
 
@@ -37,7 +37,7 @@ const CountryPage = () => {
       dispatch(setCountryName(""));
       dispatch(showCountryInfo());
       dispatch(clearUrl());
-      dispatch(setConvVis(false));
+      dispatch(setConverterVisibility(false));
       dispatch(showBorderCountries(true));
       navigate("/");
     };
@@ -47,7 +47,7 @@ const CountryPage = () => {
     const checkWindowSize = () => {
       if (window.innerWidth > 769 && (!showCountries || !converterVis)) {
         dispatch(showBorderCountries(true));
-        dispatch(setConvVis(true));
+        dispatch(setConverterVisibility(true));
       }
 
       if (
@@ -57,7 +57,7 @@ const CountryPage = () => {
         converterVis
       ) {
         dispatch(showBorderCountries(true));
-        dispatch(setConvVis(false));
+        dispatch(setConverterVisibility(false));
       }
     };
 
@@ -85,12 +85,12 @@ const CountryPage = () => {
       <div
         className={
           borderCountries.length > 10
-            ? showCountryDet
+            ? showCountryDetails
               ? backgrImgUrl
                 ? "selected__country extra-width"
                 : "selected__country extra-width visibility"
               : "selected__country extra-width hide"
-            : showCountryDet
+            : showCountryDetails
             ? backgrImgUrl
               ? "selected__country"
               : "selected__country visibility"
@@ -143,7 +143,7 @@ const CountryPage = () => {
                 <button
                   className="show-countries"
                   onClick={() => {
-                    dispatch(setConvVis(false));
+                    dispatch(setConverterVisibility(false));
                     dispatch(showBorderCountries(true));
                   }}
                 >
@@ -173,7 +173,7 @@ const CountryPage = () => {
               <button
                 className="show-converter"
                 onClick={() => {
-                  dispatch(setConvVis(true));
+                  dispatch(setConverterVisibility(true));
                   dispatch(showBorderCountries(false));
                 }}
               >

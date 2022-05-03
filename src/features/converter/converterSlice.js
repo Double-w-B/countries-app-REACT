@@ -45,7 +45,7 @@ const converterSlice = createSlice({
     clearSettings: (state, action) => {
       state.results = action.payload;
     },
-    setConvVis: (state, action) => {
+    setConverterVisibility: (state, action) => {
       state.converterVis = action.payload;
     },
   },
@@ -64,7 +64,7 @@ const converterSlice = createSlice({
   },
 });
 
-export const { setFrom, setTo, setAmount, clearSettings, setConvVis } =
+export const { setFrom, setTo, setAmount, clearSettings, setConverterVisibility } =
   converterSlice.actions;
 
 export default converterSlice.reducer;

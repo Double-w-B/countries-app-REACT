@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isGreeting: true,
   isHide: false,
-  showCountryDet: true,
+  showCountryDetails: true,
 };
 
 const navbarBtnSlice = createSlice({
@@ -23,10 +23,10 @@ const navbarBtnSlice = createSlice({
       state.isHide = false;
     },
     hideCountryInfo: (state, action) => {
-      state.showCountryDet = false;
+      state.showCountryDetails = false;
     },
     showCountryInfo: (state, action) => {
-      state.showCountryDet = true;
+      state.showCountryDetails = true;
     },
   },
 });

@@ -202,6 +202,7 @@
   height: calc(100% - 30px);
   display: -ms-grid;
   display: grid;
+  grid-gap: 0.1rem;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;

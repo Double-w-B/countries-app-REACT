@@ -7,11 +7,11 @@ import { hideCountryInfo } from "../features/navbarBtn/navbarBtnSlice";
 import { showCountryInfo } from "../features/navbarBtn/navbarBtnSlice";
 import { setCountryName } from "../features/homePageFunc/homePageFuncSlice";
 import { clearUrl } from "../features/backgrImg/backgrImgSlice";
-import { setConvVis } from "../features/converter/converterSlice";
+import { setConverterVisibility } from "../features/converter/converterSlice";
 import { showBorderCountries } from "../features/countries/countriesSlice";
 
 const Navbar = () => {
-  const { isGreeting, showCountryDet } = useSelector(
+  const { isGreeting, showCountryDetails } = useSelector(
     (store) => store.navbarBtn
   );
   const { selectedCountry } = useSelector((store) => store.homePageFunc);
@@ -23,14 +23,16 @@ const Navbar = () => {
       isGreeting ? dispatch(showAbout()) : dispatch(showGreeting());
     }
     if (selectedCountry) {
-      showCountryDet
+      showCountryDetails
         ? dispatch(hideCountryInfo())
         : dispatch(showCountryInfo());
     }
   };
 
   return (
-    <header className={selectedCountry ? "opacity" : undefined}>
+    <header
+      className={window.location.pathname === "/" ? undefined : "opacity"}
+    >
       <div className="logo">
         <Link
           to="/"
@@ -38,7 +40,7 @@ const Navbar = () => {
             dispatch(setCountryName(""));
             dispatch(showCountryInfo());
             dispatch(clearUrl());
-            dispatch(setConvVis(false));
+            dispatch(setConverterVisibility(false));
             dispatch(showBorderCountries(true));
             document.querySelector("#root").removeAttribute("style");
           }}
@@ -48,7 +50,11 @@ const Navbar = () => {
       </div>
       <div className="nav">
         <p onClick={handleClick}>
-          {selectedCountry ? (showCountryDet ? "hide" : "show") : "about"}
+          {window.location.pathname === "/"
+            ? "about"
+            : showCountryDetails
+            ? "hide"
+            : "show"}
         </p>
       </div>
     </header>
