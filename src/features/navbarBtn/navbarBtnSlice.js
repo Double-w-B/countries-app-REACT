@@ -11,10 +11,7 @@ const navbarBtnSlice = createSlice({
   initialState,
   reducers: {
     showGreeting: (state, action) => {
-      state.isGreeting = true;
-    },
-    showAbout: (state, action) => {
-      state.isGreeting = false;
+      state.isGreeting = action.payload;
     },
     showInfo: (state, action) => {
       state.isHide = true;
@@ -33,7 +30,6 @@ const navbarBtnSlice = createSlice({
 
 export const {
   showGreeting,
-  showAbout,
   showInfo,
   hideInfo,
   hideCountryInfo,

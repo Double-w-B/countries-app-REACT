@@ -10,7 +10,7 @@ const About = () => {
       </p>
 
       <p>
-        Copyright &copy; {new Date().getFullYear()} ODDYSEY. All rights
+        Copyright &copy; {new Date().getFullYear()} ODYSSEY. All rights
         reserved. <br /> made by{" "}
         <a
           href="https://github.com/Double-w-B"

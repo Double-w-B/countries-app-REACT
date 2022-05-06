@@ -2,7 +2,7 @@ import React from "react";
 import logoImg from "../Images/logo.webp";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { showAbout, showGreeting } from "../features/navbarBtn/navbarBtnSlice";
+import { showGreeting } from "../features/navbarBtn/navbarBtnSlice";
 import { hideCountryInfo } from "../features/navbarBtn/navbarBtnSlice";
 import { showCountryInfo } from "../features/navbarBtn/navbarBtnSlice";
 import { setCountryName } from "../features/homePageFunc/homePageFuncSlice";
@@ -20,7 +20,7 @@ const Navbar = () => {
 
   const handleClick = () => {
     if (!selectedCountry) {
-      isGreeting ? dispatch(showAbout()) : dispatch(showGreeting());
+      isGreeting ? dispatch(showGreeting(false)) : dispatch(showGreeting(true));
     }
     if (selectedCountry) {
       showCountryDetails
@@ -42,6 +42,7 @@ const Navbar = () => {
             dispatch(clearUrl());
             dispatch(setConverterVisibility(false));
             dispatch(showBorderCountries(true));
+            dispatch(showGreeting(true));
             document.querySelector("#root").removeAttribute("style");
           }}
         >

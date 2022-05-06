@@ -7,7 +7,10 @@ import InfoBottomMap from "../Components/InfoBottomMap";
 import InfoBottomBorder from "../Components/InfoBottomBorder";
 import Converter from "../Components/Converter";
 import { setCountryName } from "../features/homePageFunc/homePageFuncSlice";
-import { showCountryInfo } from "../features/navbarBtn/navbarBtnSlice";
+import {
+  showCountryInfo,
+  showGreeting,
+} from "../features/navbarBtn/navbarBtnSlice";
 import { clearUrl } from "../features/backgrImg/backgrImgSlice";
 import { setConverterVisibility } from "../features/converter/converterSlice";
 import { showBorderCountries } from "../features/countries/countriesSlice";
@@ -23,13 +26,13 @@ const CountryPage = () => {
   const navigate = useNavigate();
   let borderCountries = [];
 
-   React.useEffect(() => {
-     if (backgrImgUrl) {
-       document.querySelector(
-         "#root"
-       ).style.backgroundImage = `url(${backgrImgUrl})`;
-     }
-   }, [backgrImgUrl]);
+  React.useEffect(() => {
+    if (backgrImgUrl) {
+      document.querySelector(
+        "#root"
+      ).style.backgroundImage = `url(${backgrImgUrl})`;
+    }
+  }, [backgrImgUrl]);
 
   React.useEffect(() => {
     window.onpopstate = () => {
@@ -39,6 +42,7 @@ const CountryPage = () => {
       dispatch(clearUrl());
       dispatch(setConverterVisibility(false));
       dispatch(showBorderCountries(true));
+      dispatch(showGreeting(true));
       navigate("/");
     };
   });

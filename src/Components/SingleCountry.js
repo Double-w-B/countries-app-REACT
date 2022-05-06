@@ -5,7 +5,7 @@ const SingleCountry = ({ flags: { png }, name: { common } }) => {
     <div className="countries__single fadeIn">
       <div className="countries__single-flag">
         <img src={png} alt="countryFlag" loading="lazy" />
-      </div>
+      </div>{" "}
       <p
         style={{
           fontSize:
