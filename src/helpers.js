@@ -17,7 +17,15 @@ export const showAllCurrencies = () => {
 };
 
 export const showCurr = (currencies) => {
-  const currVal = Object.values(currencies)[0];
+  let currVal;
+  for (const [key] of Object.entries(currency)) {
+    if (key === Object.keys(currencies)[0])
+      currVal = Object.values(currencies)[0];
+
+    if (key === Object.keys(currencies)[1])
+      currVal = Object.values(currencies)[1];
+  }
+
   const { name, symbol } = currVal;
   return `${name} ${symbol === undefined ? "" : "(" + symbol + ")"}`;
 };
@@ -25,6 +33,9 @@ export const showCurr = (currencies) => {
 export const findCurr = (currencies) => {
   for (const [key] of Object.entries(currency)) {
     if (key === Object.keys(currencies)[0]) {
+      return <option key={key} value={key}>{key}</option>;
+    }
+    if (key === Object.keys(currencies)[1]) {
       return <option key={key} value={key}>{key}</option>;
     }
   }
