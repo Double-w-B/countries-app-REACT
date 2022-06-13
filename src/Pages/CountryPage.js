@@ -1,16 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import InfoTopMain from "../Components/InfoTopMain";
-import InfoTopFlag from "../Components/InfoTopFlag";
-import InfoBottomMap from "../Components/InfoBottomMap";
-import InfoBottomBorder from "../Components/InfoBottomBorder";
-import Converter from "../Components/Converter";
+import * as ComponentsModule from "../Components";
+import * as NavbarModule from "../features/navbarBtn/navbarBtnSlice";
 import { setCountryName } from "../features/homePageFunc/homePageFuncSlice";
-import {
-  showCountryInfo,
-  showGreeting,
-} from "../features/navbarBtn/navbarBtnSlice";
 import { clearUrl } from "../features/backgrImg/backgrImgSlice";
 import { setConverterVisibility } from "../features/converter/converterSlice";
 import { showBorderCountries } from "../features/countries/countriesSlice";
@@ -38,11 +31,11 @@ const CountryPage = () => {
     window.onpopstate = () => {
       document.querySelector("#root").removeAttribute("style");
       dispatch(setCountryName(""));
-      dispatch(showCountryInfo());
+      dispatch(NavbarModule.showCountryInfo());
       dispatch(clearUrl());
       dispatch(setConverterVisibility(false));
       dispatch(showBorderCountries(true));
-      dispatch(showGreeting(true));
+      dispatch(NavbarModule.showGreeting(true));
       navigate("/");
     };
   });
@@ -103,10 +96,10 @@ const CountryPage = () => {
       >
         <div className="info-top">
           <div className="info-top--main">
-            <InfoTopMain foundCountry={foundCountry} />
+            <ComponentsModule.InfoTopMain foundCountry={foundCountry} />
           </div>
           <div className="info-top--flag">
-            <InfoTopFlag foundCountry={foundCountry} />
+            <ComponentsModule.InfoTopFlag foundCountry={foundCountry} />
           </div>
         </div>
 
@@ -120,7 +113,7 @@ const CountryPage = () => {
                 : "info-bottom--map"
             }
           >
-            <InfoBottomMap foundCountry={foundCountry} />
+            <ComponentsModule.InfoBottomMap foundCountry={foundCountry} />
 
             <div
               className={
@@ -133,7 +126,9 @@ const CountryPage = () => {
                   : "info-bottom--border__countries hide"
               }
             >
-              <InfoBottomBorder borderCountries={borderCountries} />
+              <ComponentsModule.InfoBottomBorder
+                borderCountries={borderCountries}
+              />
 
               <div
                 className={
@@ -184,7 +179,7 @@ const CountryPage = () => {
                 converter
               </button>
             </div>
-            <Converter
+            <ComponentsModule.Converter
               currencies={currencies}
               borderCountries={borderCountries}
             />

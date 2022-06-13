@@ -2,15 +2,8 @@ import React, { useState, useRef } from "react";
 import currencyConIco from "../Icons/currencyConIco.png";
 import { showAllCurrencies, findCurr } from "../helpers";
 import exchangeIcon from "../Icons/exchange.png";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import {
-  clearSettings,
-  getConversion,
-  setAmount,
-  setFrom,
-  setTo,
-} from "../features/converter/converterSlice";
+import { useDispatch, useSelector } from "react-redux";
+import * as ConverterModule from "../features/converter/converterSlice";
 
 const Converter = ({ currencies, borderCountries }) => {
   const dispatch = useDispatch();
@@ -29,10 +22,15 @@ const Converter = ({ currencies, borderCountries }) => {
 
   React.useEffect(() => {
     setQuery("");
-    dispatch(clearSettings(""));
+    dispatch(ConverterModule.clearSettings(""));
     currencies &&
-      dispatch(setFrom(currFrom.current.selectedOptions[0].innerText));
-    currencies && dispatch(setTo(currTo.current.selectedOptions[0].innerText));
+      dispatch(
+        ConverterModule.setFrom(currFrom.current.selectedOptions[0].innerText)
+      );
+    currencies &&
+      dispatch(
+        ConverterModule.setTo(currTo.current.selectedOptions[0].innerText)
+      );
     // eslint-disable-next-line
   }, [backgrImgUrl, change]);
 
@@ -47,14 +45,16 @@ const Converter = ({ currencies, borderCountries }) => {
   const handleChange = () => {
     setChange(!change);
     setQuery("");
-    dispatch(clearSettings(""));
+    dispatch(ConverterModule.clearSettings(""));
   };
 
   const handleConvert = () => {
     query &&
       currencyFrom &&
       currencyTo &&
-      dispatch(getConversion([currencyFrom, currencyTo, amount]));
+      dispatch(
+        ConverterModule.getConversion([currencyFrom, currencyTo, amount])
+      );
   };
 
   return (
@@ -84,7 +84,9 @@ const Converter = ({ currencies, borderCountries }) => {
           value={query}
           onChange={(e) => {
             setQuery(e.target.value.replace(/[^0-9.]/g, ""));
-            dispatch(setAmount(e.target.value.replace(/[^0-9.]/g, "")));
+            dispatch(
+              ConverterModule.setAmount(e.target.value.replace(/[^0-9.]/g, ""))
+            );
           }}
         />
       </label>
@@ -96,7 +98,7 @@ const Converter = ({ currencies, borderCountries }) => {
             name="from"
             id="from"
             ref={currFrom}
-            onChange={(e) => dispatch(setFrom(e.target.value))}
+            onChange={(e) => dispatch(ConverterModule.setFrom(e.target.value))}
           >
             {currencies && !change && findCurr(currencies)}
             {currencies && change && showAllCurrencies()}
@@ -110,7 +112,7 @@ const Converter = ({ currencies, borderCountries }) => {
             id="to"
             ref={currTo}
             onChange={(e) => {
-              dispatch(setTo(e.target.value));
+              dispatch(ConverterModule.setTo(e.target.value));
             }}
           >
             {currencies && !change && showAllCurrencies()}

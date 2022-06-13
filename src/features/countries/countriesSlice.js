@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+
 const url = "https://restcountries.com/v3.1/all";
 
 const initialState = {
-  countries: JSON.parse(localStorage.getItem("allCountries")) || [],
+  countries: [],
   isLoading: true,
   showCountries: true,
 };
@@ -13,7 +14,6 @@ export const getCountries = createAsyncThunk(
   async (name, thunkAPI) => {
     try {
       const resp = await axios(url);
-      localStorage.setItem("allCountries", JSON.stringify(resp.data));
       return resp.data;
     } catch (error) {
       return thunkAPI.rejectWithValue("smth went wrong");
@@ -38,6 +38,7 @@ const countriesSlice = createSlice({
     },
     [getCountries.fulfilled]: (state, action) => {
       state.countries = action.payload;
+      sessionStorage.setItem("allCountries", JSON.stringify(state.countries));
       state.isLoading = false;
     },
     [getCountries.rejected]: (state, action) => {

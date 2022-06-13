@@ -1,10 +1,27 @@
 import React from "react";
+import { useCallback } from "react";
+import spinnerImg from "../Images/spinner.gif";
 
 const SingleCountry = ({ flags: { png }, name: { common } }) => {
+  const [imgSrc, setImgSrc] = React.useState(spinnerImg);
+
+  const onLoad = useCallback(() => {
+    setImgSrc(png);
+  }, [png]);
+
+  React.useEffect(() => {
+    const img = new Image();
+    img.src = png;
+    img.onload = onLoad();
+  }, [png, onLoad]);
+
   return (
     <div className="countries__single fadeIn">
       <div className="countries__single-flag">
-        <img src={png} alt="countryFlag" loading="lazy" />
+        <img
+          src={imgSrc}
+          alt={common + " flag image which leads to country information"}
+        />
       </div>{" "}
       <p
         style={{
