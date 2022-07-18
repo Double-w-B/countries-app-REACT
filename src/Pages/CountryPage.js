@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import * as ComponentsModule from "../Components";
+import * as CountryModule from "../Components/CountryPage"
 import * as NavbarModule from "../features/navbarBtn/navbarBtnSlice";
 import { setCountryName } from "../features/homePageFunc/homePageFuncSlice";
 import { clearUrl } from "../features/backgrImg/backgrImgSlice";
@@ -96,10 +96,10 @@ const CountryPage = () => {
       >
         <div className="info-top">
           <div className="info-top--main">
-            <ComponentsModule.InfoTopMain foundCountry={foundCountry} />
+            <CountryModule.InfoTopMain foundCountry={foundCountry} />
           </div>
           <div className="info-top--flag">
-            <ComponentsModule.InfoTopFlag foundCountry={foundCountry} />
+            <CountryModule.InfoTopFlag foundCountry={foundCountry} />
           </div>
         </div>
 
@@ -113,7 +113,7 @@ const CountryPage = () => {
                 : "info-bottom--map"
             }
           >
-            <ComponentsModule.InfoBottomMap foundCountry={foundCountry} />
+            <CountryModule.InfoBottomMap foundCountry={foundCountry} />
 
             <div
               className={
@@ -126,7 +126,7 @@ const CountryPage = () => {
                   : "info-bottom--border__countries hide"
               }
             >
-              <ComponentsModule.InfoBottomBorder
+              <CountryModule.InfoBottomBorder
                 borderCountries={borderCountries}
               />
 
@@ -179,7 +179,7 @@ const CountryPage = () => {
                 converter
               </button>
             </div>
-            <ComponentsModule.Converter
+            <CountryModule.Converter
               currencies={currencies}
               borderCountries={borderCountries}
             />

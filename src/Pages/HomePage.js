@@ -43,7 +43,11 @@ const HomePage = () => {
   return (
     <>
       <div className={isGreeting ? "greeting" : "greeting about"}>
-        {isGreeting ? <ComponentsModule.Greeting /> : <ComponentsModule.About />}
+        {isGreeting ? (
+          <ComponentsModule.AboutApp />
+        ) : (
+          <ComponentsModule.AboutAuthor />
+        )}
       </div>
 
       <div className={showHero ? "hero show" : "hero"}></div>
@@ -72,11 +76,10 @@ const HomePage = () => {
         </div>
 
         <div className="countries__all" ref={countriesContainer}>
-          {console.log(countries, isLoading)}
           {isLoading && !countries.length ? (
             <ComponentsModule.Loading />
           ) : (
-            <ComponentsModule.AllCountries query={query} />
+            <ComponentsModule.CountriesAll query={query} />
           )}
         </div>
       </div>
