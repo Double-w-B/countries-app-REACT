@@ -13,7 +13,7 @@
 
 A project with a country search functionality to find a basic information about any country of the World based on a data which comes from "REST Countries API" (https://restcountries.com/#rest-countries). Including the local currency converter that will check the latest exchange rates with a single API call provided by "Currency API" (https://currency.getgeoapi.com/). And as an additional interface feature, the random high-quality landscape photo of a selected country will be presented by "Unsplash API" (https://unsplash.com/developers) in the background. Combining these functionalities in a unique logic gives as a result an interesting and useful application.
 
-Technology: <HTML + CSS + React.js + Redux + API + RWD>
+Technology: <React.js + Redux + CSS + API + RWD>
 
 ![img-1](https://user-images.githubusercontent.com/105418561/179748945-ba59dfd9-6d01-48e3-8e26-660a40371746.jpg)
 
