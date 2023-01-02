@@ -88,7 +88,7 @@
   -ms-flex-pack: end;
   justify-content: flex-end;
   z-index: 0;
-  background-image: url("./Images/hero.webp");
+  background-image: url("../assets/Images/hero.webp");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;

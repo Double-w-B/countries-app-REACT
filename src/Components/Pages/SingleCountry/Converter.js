@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
-import { showAllCurrencies, findCurr } from "../../helpers";
+import { showAllCurrencies, findCurr } from "./utils/helpers";
 import { useDispatch, useSelector } from "react-redux";
-import * as IconsModule from "../../Icons";
-import * as ConverterModule from "../../features/converter/converterSlice";
+import * as IconsModule from "../../../assets/Icons";
+import * as ConverterModule from "../../../redux/features/converter/converterSlice";
 
 const Converter = ({ currencies, borderCountries }) => {
   const dispatch = useDispatch();

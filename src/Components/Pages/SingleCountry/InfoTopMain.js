@@ -1,6 +1,6 @@
 import React from "react";
-import { showLang, showCurr } from "../../helpers";
-import * as IconsModule from "../../Icons";
+import { showLang, showCurr } from "./utils/helpers";
+import * as IconsModule from "../../../assets/Icons";
 
 const InfoTopMain = ({ foundCountry }) => {
   const {

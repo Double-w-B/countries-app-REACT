@@ -1,9 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setCountryName } from "../../features/homePageFunc/homePageFuncSlice";
-import { getImg, clearUrl } from "../../features/backgrImg/backgrImgSlice";
-import { setConverterVisibility } from "../../features/converter/converterSlice";
+import { setCountryName } from "../../../redux/features/homePageFunc/homePageFuncSlice";
+import {
+  getImg,
+  clearUrl,
+} from "../../../redux/features/backgrImg/backgrImgSlice";
+import { setConverterVisibility } from "../../../redux/features/converter/converterSlice";
 
 const InfoBottomBorder = ({ borderCountries }) => {
   const dispatch = useDispatch();

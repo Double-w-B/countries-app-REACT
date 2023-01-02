@@ -1,5 +1,5 @@
 import React from "react";
-import * as IconsModule from "../../Icons";
+import * as IconsModule from "../../../assets/Icons";
 
 const InfoBottomMap = ({ foundCountry }) => {
   const {
