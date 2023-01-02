@@ -4,7 +4,7 @@ import axios from "axios";
 const url = "https://restcountries.com/v3.1/all";
 
 const initialState = {
-  countries: [],
+  countries: JSON.parse(sessionStorage.getItem("allCountries")) || [],
   isLoading: true,
   showCountries: true,
 };
@@ -13,8 +13,8 @@ export const getCountries = createAsyncThunk(
   "countries/getCountries",
   async (name, thunkAPI) => {
     try {
-      const resp = await axios(url);
-      return resp.data;
+      const response = await axios(url);
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue("smth went wrong");
     }

@@ -1,16 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import navbarBtnReducer from "./features/navbarBtn/navbarBtnSlice";
-import homePageFuncReducer from "./features/homePageFunc/homePageFuncSlice";
+import homePageReducer from "./features/homePage/homePageSlice";
 import countriesReducer from "./features/countries/countriesSlice";
-import backgrImgReducer from "./features/backgrImg/backgrImgSlice";
+import backgroundImgReducer from "./features/backgroundImg/backgroundImgSlice";
 import converterReducer from "./features/converter/converterSlice";
+import appSliceReducer from "./features/functional/appSlice";
 
 export const store = configureStore({
   reducer: {
     navbarBtn: navbarBtnReducer,
-    homePageFunc: homePageFuncReducer,
+    homePage: homePageReducer,
     countries: countriesReducer,
-    backgrImg: backgrImgReducer,
+    backgroundImg: backgroundImgReducer,
     converter: converterReducer,
+    app: appSliceReducer,
   },
 });

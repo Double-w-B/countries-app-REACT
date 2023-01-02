@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isHover: false,
   isActive: false,
-  selectedCountry: JSON.parse(localStorage.getItem("selectedCountry")) || "",
+  selectedCountry: JSON.parse(sessionStorage.getItem("selectedCountry")) || "",
 };
 
-const homePageFuncSlice = createSlice({
-  name: "homePageFunc",
+const homePageSlice = createSlice({
+  name: "homePage",
   initialState,
   reducers: {
     addHover: (state, action) => {
@@ -24,7 +24,7 @@ const homePageFuncSlice = createSlice({
     },
     setCountryName: (state, action) => {
       state.selectedCountry = action.payload;
-      localStorage.setItem("selectedCountry", JSON.stringify(action.payload));
+      sessionStorage.setItem("selectedCountry", JSON.stringify(action.payload));
     },
   },
 });
@@ -35,6 +35,6 @@ export const {
   addActive,
   removeActive,
   setCountryName,
-} = homePageFuncSlice.actions;
+} = homePageSlice.actions;
 
-export default homePageFuncSlice.reducer;
+export default homePageSlice.reducer;

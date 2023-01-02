@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isGreeting: true,
-  isHide: false,
   showCountryDetails: true,
 };
 
@@ -13,12 +12,6 @@ const navbarBtnSlice = createSlice({
     showGreeting: (state, action) => {
       state.isGreeting = action.payload;
     },
-    showInfo: (state, action) => {
-      state.isHide = true;
-    },
-    hideInfo: (state, action) => {
-      state.isHide = false;
-    },
     hideCountryInfo: (state, action) => {
       state.showCountryDetails = false;
     },
@@ -28,12 +21,7 @@ const navbarBtnSlice = createSlice({
   },
 });
 
-export const {
-  showGreeting,
-  showInfo,
-  hideInfo,
-  hideCountryInfo,
-  showCountryInfo,
-} = navbarBtnSlice.actions;
+export const { showGreeting, hideCountryInfo, showCountryInfo } =
+  navbarBtnSlice.actions;
 
 export default navbarBtnSlice.reducer;

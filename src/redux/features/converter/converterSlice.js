@@ -18,11 +18,10 @@ export const getConversion = createAsyncThunk(
   async (settings, thunkAPI) => {
     try {
       const [from, to, amount] = settings;
-      const resp = await axios(
-        `${url}&from=${from}&to=${to}&amount=${amount}&format=json`
-      );
+      const endUrl = `${url}&from=${from}&to=${to}&amount=${amount}&format=json`;
+      const response = await axios(endUrl);
 
-      return resp.data;
+      return response.data;
     } catch (error) {
       console.log(error);
     }
@@ -50,8 +49,7 @@ const converterSlice = createSlice({
     },
   },
   extraReducers: {
-    /*     [getConversion.pending]: (state) => {
-    }, */
+    [getConversion.pending]: (state) => {},
     [getConversion.fulfilled]: (state, action) => {
       const localCurr = Object.values(action.payload.rates)[0];
       const { rate_for_amount: result } = localCurr;
@@ -59,12 +57,16 @@ const converterSlice = createSlice({
         result
       ).toFixed(2)} ${state.currencyTo}`;
     },
-    /*     [getConversion.rejected]: (state, action) => {
-    }, */
+    [getConversion.rejected]: (state, action) => {},
   },
 });
 
-export const { setFrom, setTo, setAmount, clearSettings, setConverterVisibility } =
-  converterSlice.actions;
+export const {
+  setFrom,
+  setTo,
+  setAmount,
+  clearSettings,
+  setConverterVisibility,
+} = converterSlice.actions;
 
 export default converterSlice.reducer;
