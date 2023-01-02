@@ -13,7 +13,7 @@ const InfoBottomMap = ({ foundCountry }) => {
     <>
       <p>
         <img src={IconsModule.pointIco} alt="icon" />
-        check on the map:
+        map:
         <a href={googleMaps} target="_blank" rel="noopener noreferrer">
           {common} <span>{flagIcon}</span>
         </a>

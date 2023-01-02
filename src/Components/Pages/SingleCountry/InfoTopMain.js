@@ -1,8 +1,11 @@
 import React from "react";
 import { showLang, showCurr } from "./utils/helpers";
 import * as IconsModule from "../../../assets/Icons";
+import { useSelector } from "react-redux";
 
 const InfoTopMain = ({ foundCountry }) => {
+  const { windowWidth } = useSelector((store) => store.app);
+
   const {
     name: { common, official },
     coatOfArms: { png: coa },
@@ -15,14 +18,15 @@ const InfoTopMain = ({ foundCountry }) => {
     currencies,
   } = foundCountry;
 
+  const spaceBetweenNumbers = (element) => {
+    return element.toString().replace(/(?!^)(?=(?:\d{3})+(?:\.|$))/gm, " ");
+  };
+
   return (
     <>
       <h2
         style={{
-          fontSize:
-            common.length > 12 && window.innerWidth < 600
-              ? "1.2rem"
-              : undefined,
+          fontSize: common.length > 12 && windowWidth < 600 && "1.2rem",
         }}
       >
         {common}
@@ -35,14 +39,11 @@ const InfoTopMain = ({ foundCountry }) => {
       </p>
       <p>
         <img src={IconsModule.areaIco} alt="icon" />
-        area: {area
-          .toString()
-          .replace(/(?!^)(?=(?:\d{3})+(?:\.|$))/gm, " ")} km <sup>2</sup>
+        area: {spaceBetweenNumbers(area)} km <sup>2</sup>
       </p>
       <p>
         <img src={IconsModule.populationIco} alt="icon" />
-        population:{" "}
-        {population.toString().replace(/(?!^)(?=(?:\d{3})+(?:\.|$))/gm, " ")}
+        population: {spaceBetweenNumbers(population)}
       </p>
       <p>
         <img src={IconsModule.capitalIco} alt="icon" />

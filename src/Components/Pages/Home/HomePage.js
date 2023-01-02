@@ -1,17 +1,19 @@
-import React, { useRef } from "react";
+import React, { useRef, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * as ComponentsModule from "../..";
-import * as homePageFuncModule from "../../../redux/features/homePageFunc/homePageFuncSlice";
+import * as Component from "./index";
+import * as homePageSlice from "../../../redux/features/homePage/homePageSlice";
 
 const HomePage = () => {
-  const [query, setQuery] = React.useState("");
-  const [showHero, setShowHero] = React.useState(false);
   const dispatch = useDispatch();
 
+  const { isHover, isActive } = useSelector((store) => store.homePage);
   const { isGreeting } = useSelector((store) => store.navbarBtn);
-  const { isHover, isActive } = useSelector((store) => store.homePageFunc);
-  const { isLoading, countries } = useSelector((store) => store.countries);
+  const { isLoading } = useSelector((store) => store.countries);
+  const { windowWidth } = useSelector((store) => store.app);
   const countriesContainer = useRef(null);
+
+  const [query, setQuery] = React.useState("");
+  const [showHero, setShowHero] = React.useState(false);
 
   React.useEffect(() => {
     if (!isHover || !isActive) {
@@ -21,69 +23,66 @@ const HomePage = () => {
   }, [isHover, isActive]);
 
   React.useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setShowHero(true);
     }, 300);
+    return () => clearTimeout(timer);
   }, []);
 
-  const addClass = () => {
-    if (window.innerWidth > 992 && isHover && isActive) {
-      return "countries__container hover active";
+  const countriesContainerClassName = () => {
+    if (windowWidth > 992 && isHover && isActive) {
+      return "hover active";
     }
-    if (window.innerWidth > 992 && isHover) {
-      return "countries__container hover";
+    if (windowWidth > 992 && isHover) {
+      return "hover";
     }
     if (isActive) {
-      return "countries__container active";
+      return "active";
     }
+  };
 
-    return "countries__container";
+  const handleMouseOver = () => {
+    if (!isHover) {
+      dispatch(homePageSlice.addHover());
+    }
   };
 
   return (
-    <>
+    <Fragment>
       <div className={isGreeting ? "greeting" : "greeting about"}>
-        {isGreeting ? (
-          <ComponentsModule.AboutApp />
-        ) : (
-          <ComponentsModule.AboutAuthor />
-        )}
+        {isGreeting ? <Component.AboutApp /> : <Component.AboutAuthor />}
       </div>
 
       <div className={showHero ? "hero show" : "hero"}></div>
 
       <div
-        className={addClass()}
-        onMouseOver={() =>
-          !isHover ? dispatch(homePageFuncModule.addHover()) : undefined
-        }
+        className={`countries__container ${countriesContainerClassName()}`}
+        onMouseOver={handleMouseOver}
       >
         <div className="countries__container-search">
-          <form>
+          <form onSubmit={(e) => e.preventDefault()}>
             <input
               type="text"
-              name="search"
-              id="search"
-              placeholder="country name ..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              placeholder="country name ..."
               onFocus={(e) => (e.target.placeholder = "")}
               onBlur={(e) => (e.target.placeholder = "country name ...")}
-              onClick={() => dispatch(homePageFuncModule.addActive())}
+              onClick={() => dispatch(homePageSlice.addActive())}
               autoComplete="off"
             />
           </form>
         </div>
 
         <div className="countries__all" ref={countriesContainer}>
-          {isLoading && !countries.length ? (
-            <ComponentsModule.Loading />
+          {isLoading ? (
+            <Component.CountriesLoading />
           ) : (
-            <ComponentsModule.CountriesAll query={query} />
+            <Component.CountriesAll query={query} />
           )}
         </div>
       </div>
-    </>
+    </Fragment>
   );
 };
 

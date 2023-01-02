@@ -1,13 +1,13 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Navbar from "./shared/Navbar";
 import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { removeHover } from "../redux/features/homePageFunc/homePageFuncSlice";
-import { removeActive } from "../redux/features/homePageFunc/homePageFuncSlice";
+import * as homePageSlice from "../redux/features/homePage/homePageSlice";
 
 const SharedLayout = () => {
   const dispatch = useDispatch();
-  const { isHover, isActive } = useSelector((store) => store.homePageFunc);
+
+  const { isHover, isActive } = useSelector((store) => store.homePage);
 
   const handleClick = (e) => {
     if (
@@ -16,8 +16,8 @@ const SharedLayout = () => {
       isHover &&
       isActive
     ) {
-      dispatch(removeHover());
-      dispatch(removeActive());
+      dispatch(homePageSlice.removeHover());
+      dispatch(homePageSlice.removeActive());
     }
   };
 
@@ -28,17 +28,17 @@ const SharedLayout = () => {
       isHover &&
       !isActive
     ) {
-      dispatch(removeHover());
+      dispatch(homePageSlice.removeHover());
     }
   };
 
   return (
-    <>
+    <Fragment>
       <Navbar />
       <main onClick={handleClick} onMouseOver={handleMouseOver}>
         <Outlet />
       </main>
-    </>
+    </Fragment>
   );
 };
 

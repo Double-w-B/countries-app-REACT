@@ -15,24 +15,17 @@ const CountriesSingle = ({ flags: { png }, name: { common } }) => {
     img.onload = onLoad();
   }, [png, onLoad]);
 
+  const setParagraphFontSize = () => {
+    if (common.length > 18 && common.length < 30) return "0.8rem";
+    if (common.length > 30) return "0.75rem";
+  };
+
   return (
     <div className="countries__single fadeIn">
       <div className="countries__single-flag">
-        <img
-          src={imgSrc}
-          alt={common + " flag image which leads to country information"}
-        />
-      </div>{" "}
-      <p
-        style={{
-          fontSize:
-            common.length > 24 && common.length < 35
-              ? "0.8rem"
-              : common.length > 35 && "0.7rem",
-        }}
-      >
-        {common}
-      </p>
+        <img src={imgSrc} alt={common + " flag image"} />
+      </div>
+      <p style={{ fontSize: setParagraphFontSize() }}>{common}</p>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import spinnerImg from "../../../assets/Images/spinner.gif";
 
-const Loading = () => {
+const CountriesLoading = () => {
   return (
     <div className="countries__all-loading">
       <img src={spinnerImg} alt="loading spinner" />
@@ -9,4 +9,4 @@ const Loading = () => {
   );
 };
 
-export default Loading;
+export default CountriesLoading;

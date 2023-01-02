@@ -1,11 +1,15 @@
 import React, { useState, useRef } from "react";
 import { showAllCurrencies, findCurr } from "./utils/helpers";
 import { useDispatch, useSelector } from "react-redux";
-import * as IconsModule from "../../../assets/Icons";
-import * as ConverterModule from "../../../redux/features/converter/converterSlice";
+import * as Icon from "../../../assets/Icons";
+import * as converterSlice from "../../../redux/features/converter/converterSlice";
 
 const Converter = ({ currencies, borderCountries }) => {
   const dispatch = useDispatch();
+
+  const { backgroundImgUrl } = useSelector((store) => store.backgroundImg);
+  const { converterVis } = useSelector((store) => store.converter);
+  const { windowWidth } = useSelector((store) => store.app);
   const { currencyFrom, currencyTo, amount, results } = useSelector(
     (store) => store.converter
   );
@@ -16,22 +20,16 @@ const Converter = ({ currencies, borderCountries }) => {
   const currFrom = useRef(null);
   const currTo = useRef(null);
 
-  const { backgrImgUrl } = useSelector((store) => store.backgrImg);
-  const { converterVis } = useSelector((store) => store.converter);
-
   React.useEffect(() => {
+    const currencyFrom = currFrom?.current?.selectedOptions[0]?.innerText;
+    const currencyTo = currTo?.current?.selectedOptions[0]?.innerText;
+
     setQuery("");
-    dispatch(ConverterModule.clearSettings(""));
-    currencies &&
-      dispatch(
-        ConverterModule.setFrom(currFrom.current.selectedOptions[0].innerText)
-      );
-    currencies &&
-      dispatch(
-        ConverterModule.setTo(currTo.current.selectedOptions[0].innerText)
-      );
+    dispatch(converterSlice.clearSettings(""));
+    currencies && dispatch(converterSlice.setFrom(currencyFrom));
+    currencies && dispatch(converterSlice.setTo(currencyTo));
     // eslint-disable-next-line
-  }, [backgrImgUrl, change]);
+  }, [backgroundImgUrl, change]);
 
   const checkCurr = () => {
     return currencies
@@ -44,30 +42,26 @@ const Converter = ({ currencies, borderCountries }) => {
   const handleChange = () => {
     setChange(!change);
     setQuery("");
-    dispatch(ConverterModule.clearSettings(""));
+    dispatch(converterSlice.clearSettings(""));
   };
 
   const handleConvert = () => {
-    query &&
-      currencyFrom &&
-      currencyTo &&
-      dispatch(
-        ConverterModule.getConversion([currencyFrom, currencyTo, amount])
-      );
+    const data = [currencyFrom, currencyTo, amount];
+    if (query && currencyFrom && currencyTo) {
+      dispatch(converterSlice.getConversion(data));
+    }
+  };
+
+  const converterClassName = () => {
+    if (windowWidth < 769 && borderCountries.length > 0) {
+      if (!converterVis) return "hide";
+    }
   };
 
   return (
-    <div
-      className={
-        window.innerWidth < 769 && borderCountries.length > 0
-          ? converterVis
-            ? "converter__calc"
-            : "converter__calc hide"
-          : "converter__calc"
-      }
-    >
+    <div className={`converter__calc ${converterClassName()}`}>
       <div className="converter__header">
-        <img src={IconsModule.currencyConIco} alt="icon" />
+        <img src={Icon.currencyConIco} alt="icon" />
         <p>LOCAL CURRENCY CONVERTER</p>
       </div>
 
@@ -84,7 +78,7 @@ const Converter = ({ currencies, borderCountries }) => {
           onChange={(e) => {
             setQuery(e.target.value.replace(/[^0-9.]/g, ""));
             dispatch(
-              ConverterModule.setAmount(e.target.value.replace(/[^0-9.]/g, ""))
+              converterSlice.setAmount(e.target.value.replace(/[^0-9.]/g, ""))
             );
           }}
         />
@@ -97,7 +91,7 @@ const Converter = ({ currencies, borderCountries }) => {
             name="from"
             id="from"
             ref={currFrom}
-            onChange={(e) => dispatch(ConverterModule.setFrom(e.target.value))}
+            onChange={(e) => dispatch(converterSlice.setFrom(e.target.value))}
           >
             {currencies && !change && findCurr(currencies)}
             {currencies && change && showAllCurrencies()}
@@ -111,7 +105,7 @@ const Converter = ({ currencies, borderCountries }) => {
             id="to"
             ref={currTo}
             onChange={(e) => {
-              dispatch(ConverterModule.setTo(e.target.value));
+              dispatch(converterSlice.setTo(e.target.value));
             }}
           >
             {currencies && !change && showAllCurrencies()}
@@ -124,7 +118,7 @@ const Converter = ({ currencies, borderCountries }) => {
         className="converter__calc-change"
         onClick={currencies && handleChange}
       >
-        <img src={IconsModule.exchangeIcon} alt="icon" />
+        <img src={Icon.exchangeIcon} alt="icon" />
       </button>
       <button className="converter__calc-convert" onClick={handleConvert}>
         Convert
