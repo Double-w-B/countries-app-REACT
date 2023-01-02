@@ -480,7 +480,6 @@
 
 .selected__country .info-top--flag__img {
   width: 90%;
-  /* height: 70%; */
   min-height: 50%;
   margin-top: 0.5rem;
   background-position: top;
@@ -929,6 +928,11 @@
 
 .info-bottom--converter .converter__calc-result.error {
   color: #ed2939;
+}
+
+.converter__calc-result p.errorMsg {
+  color: #ed2939;
+  font-size: 1rem;
 }
 
 @media screen and (max-width: 1300px) {

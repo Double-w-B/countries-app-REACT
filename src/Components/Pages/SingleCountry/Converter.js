@@ -16,16 +16,25 @@ const Converter = ({ currencies, borderCountries }) => {
 
   const [change, setChange] = useState(false);
   const [query, setQuery] = useState("");
+  const [errorMsg, setErrorMsg] = React.useState("");
 
   const currFrom = useRef(null);
   const currTo = useRef(null);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setErrorMsg("");
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [errorMsg]);
 
   React.useEffect(() => {
     const currencyFrom = currFrom?.current?.selectedOptions[0]?.innerText;
     const currencyTo = currTo?.current?.selectedOptions[0]?.innerText;
 
     setQuery("");
-    dispatch(converterSlice.clearSettings(""));
+    dispatch(converterSlice.clearSettings());
     currencies && dispatch(converterSlice.setFrom(currencyFrom));
     currencies && dispatch(converterSlice.setTo(currencyTo));
     // eslint-disable-next-line
@@ -39,14 +48,43 @@ const Converter = ({ currencies, borderCountries }) => {
       : "no local currency";
   };
 
-  const handleChange = () => {
+  const handleCurrencyChange = () => {
     setChange(!change);
     setQuery("");
-    dispatch(converterSlice.clearSettings(""));
+    dispatch(converterSlice.clearSettings());
+  };
+
+  const handleAmountChange = (e) => {
+    const regExp = /[^0-9.]/g;
+    setQuery(e.target.value.replace(regExp, ""));
+    dispatch(converterSlice.setAmount(e.target.value.replace(regExp, "")));
+    dispatch(converterSlice.clearResults());
+    setErrorMsg("");
+  };
+
+  const handleFromChange = (e) => {
+    dispatch(converterSlice.setFrom(e.target.value));
+    dispatch(converterSlice.clearResults());
+    setErrorMsg("");
+  };
+  const handleToChange = (e) => {
+    dispatch(converterSlice.setTo(e.target.value));
+    dispatch(converterSlice.clearResults());
+    setErrorMsg("");
   };
 
   const handleConvert = () => {
     const data = [currencyFrom, currencyTo, amount];
+    if (errorMsg) return;
+
+    if (!currencyFrom || !currencyTo) {
+      return setErrorMsg("Please select currency");
+    }
+
+    if (!amount) {
+      return setErrorMsg("Please add amount");
+    }
+
     if (query && currencyFrom && currencyTo) {
       dispatch(converterSlice.getConversion(data));
     }
@@ -75,24 +113,14 @@ const Converter = ({ currencies, borderCountries }) => {
           onFocus={(e) => (e.target.placeholder = "")}
           onBlur={(e) => (e.target.placeholder = checkCurr())}
           value={query}
-          onChange={(e) => {
-            setQuery(e.target.value.replace(/[^0-9.]/g, ""));
-            dispatch(
-              converterSlice.setAmount(e.target.value.replace(/[^0-9.]/g, ""))
-            );
-          }}
+          onChange={handleAmountChange}
         />
       </label>
 
       <div className="converter__calc-currencies">
         <label htmlFor="from">
           From
-          <select
-            name="from"
-            id="from"
-            ref={currFrom}
-            onChange={(e) => dispatch(converterSlice.setFrom(e.target.value))}
-          >
+          <select id="from" ref={currFrom} onChange={handleFromChange}>
             {currencies && !change && findCurr(currencies)}
             {currencies && change && showAllCurrencies()}
           </select>
@@ -100,14 +128,7 @@ const Converter = ({ currencies, borderCountries }) => {
 
         <label htmlFor="to">
           To
-          <select
-            name="to"
-            id="to"
-            ref={currTo}
-            onChange={(e) => {
-              dispatch(converterSlice.setTo(e.target.value));
-            }}
-          >
+          <select id="to" ref={currTo} onChange={handleToChange}>
             {currencies && !change && showAllCurrencies()}
             {currencies && change && findCurr(currencies)}
           </select>
@@ -116,15 +137,18 @@ const Converter = ({ currencies, borderCountries }) => {
 
       <button
         className="converter__calc-change"
-        onClick={currencies && handleChange}
+        onClick={currencies && handleCurrencyChange}
       >
         <img src={Icon.exchangeIcon} alt="icon" />
       </button>
+
       <button className="converter__calc-convert" onClick={handleConvert}>
         Convert
       </button>
+
       <div className="converter__calc-result">
-        {results ? results : undefined}
+        {!errorMsg && results && <p>{results}</p>}
+        {errorMsg && <p className="errorMsg">{errorMsg}</p>}
       </div>
     </div>
   );

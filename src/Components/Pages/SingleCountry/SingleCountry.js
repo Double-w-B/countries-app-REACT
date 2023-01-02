@@ -67,9 +67,6 @@ const SingleCountry = () => {
     // eslint-disable-next-line
   }, [windowWidth]);
 
-  console.log(countries);
-  console.log(selectedCountry);
-
   const foundCountry = countries?.find((country) => {
     return country.name.common === selectedCountry;
   });

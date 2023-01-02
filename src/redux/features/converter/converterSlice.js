@@ -42,14 +42,18 @@ const converterSlice = createSlice({
       state.amount = action.payload;
     },
     clearSettings: (state, action) => {
-      state.results = action.payload;
+      state.results = "";
+      state.amount = "";
     },
     setConverterVisibility: (state, action) => {
       state.converterVis = action.payload;
     },
+    clearResults: (state) => {
+      state.results = "";
+    },
   },
   extraReducers: {
-    [getConversion.pending]: (state) => {},
+    [getConversion.pending]: () => {},
     [getConversion.fulfilled]: (state, action) => {
       const localCurr = Object.values(action.payload.rates)[0];
       const { rate_for_amount: result } = localCurr;
@@ -57,7 +61,7 @@ const converterSlice = createSlice({
         result
       ).toFixed(2)} ${state.currencyTo}`;
     },
-    [getConversion.rejected]: (state, action) => {},
+    [getConversion.rejected]: () => {},
   },
 });
 
@@ -66,6 +70,7 @@ export const {
   setTo,
   setAmount,
   clearSettings,
+  clearResults,
   setConverterVisibility,
 } = converterSlice.actions;
 
