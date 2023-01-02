@@ -53,25 +53,6 @@
   cursor: pointer;
 }
 
-.nav {
-  height: 100%;
-  display: -ms-grid;
-  display: grid;
-  place-items: center;
-}
-
-.nav p {
-  text-transform: uppercase;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #4e637e;
-}
-
-.nav p:active {
-  -webkit-transform: scale(0.7);
-  transform: scale(0.7);
-}
-
 .hero {
   width: 50%;
   height: 100%;
@@ -145,10 +126,10 @@
 
 .countries__container {
   width: 45%;
+  height: 40%;
   margin: 0 0 1rem 4rem;
-  height: 35%;
-  border-radius: 1rem;
-  padding: 1rem;
+  border-radius: 0.5rem;
+  padding: 1rem 0.5rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -177,7 +158,7 @@
   width: 100%;
   height: 35px;
   margin-bottom: 1rem;
-  padding: 0 1rem;
+  padding: 0 0.5rem;
 }
 
 .countries__container-search form {
@@ -241,7 +222,7 @@
   height: calc(100% - 30px);
   display: -ms-grid;
   display: grid;
-  grid-gap: 0.1rem;
+  grid-gap: 0.7rem 0.5rem;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
@@ -270,20 +251,11 @@
   -webkit-box-shadow: inset 0 0 10px #4e637e;
 }
 .countries__all .no-matches {
-  width: 100%;
-  height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  align-self: center;
+  justify-self: center;
   text-align: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
   font-size: 1.5rem;
-  font-family: "Lato", sans-serif;
+  font-family: "Exo", sans-serif;
   color: #4e637e;
   position: absolute;
 }
@@ -291,6 +263,7 @@
 .countries__all a {
   text-decoration: none;
   color: #001d4d;
+  transition: all 0.5s linear;
 }
 
 .countries__all .countries__single {
@@ -313,18 +286,22 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-transition: all 0.1s linear;
-  transition: all 0.1s linear;
+  -webkit-transition: all 0.5s linear;
+  transition: all 0.5s linear;
   cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .countries__all .countries__single.fadeIn {
-  -webkit-animation: fadein 2s;
+  opacity: 1;
+  visibility: visible;
+  /* -webkit-animation: fadein 2s; */
   /* Safari, Chrome and Opera > 12.1 */
   /* Firefox < 16 */
   /* Internet Explorer */
   /* Opera < 12.1 */
-  animation: fadein 2s;
+  /* animation: fadein 2s; */
 }
 
 .countries__all .countries__single:hover {
@@ -341,6 +318,7 @@
   height: 100%;
   -o-object-fit: contain;
   object-fit: contain;
+  object-position: top;
   color: transparent;
   -webkit-filter: drop-shadow(2px 2px 5px #666666);
   filter: drop-shadow(2px 2px 5px #666666);
@@ -350,7 +328,7 @@
   text-align: center;
   -webkit-transition: all 0.1s linear;
   transition: all 0.1s linear;
-  font-family: "Lato", sans-serif;
+  font-family: "Exo", sans-serif;
   font-weight: 300;
 }
 
@@ -367,12 +345,20 @@
   -ms-flex-pack: center;
   justify-content: center;
   font-size: 1.5rem;
-  font-family: "Lato", sans-serif;
+  font-family: "Exo", sans-serif;
 }
 .countries__all-loading img {
   width: 100px;
   height: 100px;
   color: transparent;
+}
+
+.loading {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background-color: #fff;
 }
 
 .selected__country {
@@ -382,16 +368,11 @@
   -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: block;
-  -webkit-animation: fadein 3s;
-  /* Safari, Chrome and Opera > 12.1 */
-  /* Firefox < 16 */
-  /* Internet Explorer */
-  /* Opera < 12.1 */
-  animation: fadein 3s;
 }
 
 .selected__country.visibility {
-  display: none;
+  opacity: 1;
+  visibility: visible;
 }
 
 .selected__country.extra-width {
@@ -499,7 +480,8 @@
 
 .selected__country .info-top--flag__img {
   width: 90%;
-  height: 70%;
+  /* height: 70%; */
+  min-height: 50%;
   margin-top: 0.5rem;
   background-position: top;
   background-repeat: no-repeat;
@@ -510,8 +492,7 @@
 
 .selected__country .info-top--flag p {
   font-size: 1.2rem;
-  margin-top: 0.2rem;
-  text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+  margin: 0.5rem 0.5rem 0 0.5rem;
   text-align: center;
   color: #4e637e;
   opacity: 0.7;
@@ -696,13 +677,13 @@
   margin-left: 0;
   font-size: 1rem;
   text-align: center;
-  font-family: "Lato", sans-serif;
+  font-family: "Exo", sans-serif;
 }
 
 .info-bottom--converter {
   width: 35%;
   height: 100%;
-  font-family: "Lato", sans-serif;
+  font-family: "Exo", sans-serif;
 }
 
 .info-bottom--converter.hide {
@@ -753,11 +734,12 @@
   -ms-flex-align: center;
   align-items: center;
   -ms-flex-pack: distribute;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .info-bottom--converter .converter__header img {
   width: 30px;
+  margin-right: 1rem;
   -webkit-filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.3));
   filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.3));
 }
@@ -811,6 +793,7 @@
   padding-left: 1rem;
   background-color: transparent;
   cursor: pointer;
+  font-family: inherit;
 }
 
 .info-bottom--converter
@@ -892,10 +875,12 @@
 .info-bottom--converter .converter__calc-currencies label select {
   width: 100%;
   height: 1.5rem;
+  padding-left: 0.5rem;
   border: 1px solid #686868;
   border-radius: 0.3rem;
   background-color: transparent;
   cursor: pointer;
+  font-family: inherit;
 }
 
 .info-bottom--converter .converter__calc-currencies label select:focus {
@@ -907,10 +892,18 @@
   width: 30%;
   height: 1.5rem;
   margin: 0 auto;
-  background-color: transparent;
+  display: grid;
+  place-items: center;
   border: 1px solid #686868;
   border-radius: 0.3rem;
   cursor: pointer;
+  background-color: transparent;
+  font-family: inherit;
+}
+
+.info-bottom--converter .converter__calc-change:hover,
+.info-bottom--converter .converter__calc-convert:hover {
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 .info-bottom--converter .converter__calc-change:active,
@@ -1185,6 +1178,28 @@ header {
 
 header.opacity {
   background-color: rgba(255, 255, 255, 0.6);
+}
+
+header button {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+header button span {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #4e637e;
+  font-family: serif;
+}
+
+header button span:active {
+  -webkit-transform: scale(0.7);
+  transform: scale(0.7);
 }
 
 main {
