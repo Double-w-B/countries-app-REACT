@@ -2,8 +2,8 @@ import React from "react";
 import SingleCountry from "./CountriesSingle";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getImg } from "../features/backgrImg/backgrImgSlice";
-import * as homePageFuncModule from "../features/homePageFunc/homePageFuncSlice";
+import { getImg } from "../../../redux/features/backgrImg/backgrImgSlice";
+import * as homePageFuncModule from "../../../redux/features/homePageFunc/homePageFuncSlice";
 
 const CountriesAll = ({ query }) => {
   const dispatch = useDispatch();

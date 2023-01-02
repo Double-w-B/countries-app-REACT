@@ -1,6 +1,6 @@
 import React from "react";
 import { useCallback } from "react";
-import spinnerImg from "../Images/spinner.gif";
+import spinnerImg from "../../../assets/Images/spinner.gif";
 
 const CountriesSingle = ({ flags: { png }, name: { common } }) => {
   const [imgSrc, setImgSrc] = React.useState(spinnerImg);
